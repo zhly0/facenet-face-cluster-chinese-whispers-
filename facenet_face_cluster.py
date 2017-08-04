@@ -255,7 +255,7 @@ def parse_args():
     import argparse
     parser = argparse.ArgumentParser(description='Get a shape mesh (t-pose)')
     parser.add_argument('--model_dir', type=str, help='model dir', required=True)
-    parser.add_argument('--batch_size', type=int, help='model dir', required=30)
+    parser.add_argument('--batch_size', type=int, help='batch size', required=30)
     parser.add_argument('--input', type=str, help='Input dir of images', required=True)
     parser.add_argument('--output', type=str, help='Output dir of clusters', required=True)
     args = parser.parse_args()
