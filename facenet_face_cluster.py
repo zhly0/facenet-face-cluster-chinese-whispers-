@@ -20,6 +20,11 @@ def face_distance(face_encodings, face_to_compare):
 
     return np.linalg.norm(face_encodings - face_to_compare, axis=1)
 
+def load_model(model_dir, meta_file, ckpt_file):
+    model_dir_exp = os.path.expanduser(model_dir)
+    saver = tf.train.import_meta_graph(os.path.join(model_dir_exp, meta_file))
+    saver.restore(tf.get_default_session(), os.path.join(model_dir_exp, ckpt_file))
+
 def _chinese_whispers(encoding_list, threshold=0.75, iterations=20):
     """ Chinese Whispers Algorithm
 
@@ -202,7 +207,7 @@ def main(args):
             
             print('Metagraph file: %s' % meta_file)
             print('Checkpoint file: %s' % ckpt_file)
-            facenet.load_model(args.model_dir, meta_file, ckpt_file)
+            load_model(args.model_dir, meta_file, ckpt_file)
             
             # Get input and output tensors
             images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
