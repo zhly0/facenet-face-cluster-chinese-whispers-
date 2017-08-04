@@ -222,12 +222,10 @@ def main(args):
 
 
             counter  = 0
+            
             for x in range(len(train_set)):  
                 counter += 1
-                if counter<56700:
-                	continue
-                if counter % 100 == 0:
-                    print(counter)
+                print(counter)
                 image_paths = train_set[x].image_paths
                 nrof_images = len(image_paths)
                 nrof_batches = int(math.ceil(1.0*nrof_images / args.batch_size))
