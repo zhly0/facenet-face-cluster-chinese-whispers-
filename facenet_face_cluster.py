@@ -221,7 +221,6 @@ def main(args):
             # Run forward pass to calculate embeddings
             print('Runnning forward pass on images')
 
-
             counter  = 0
             
             for x in range(len(train_set)):  
@@ -235,23 +234,17 @@ def main(args):
                 	embedding_size,nrof_images,nrof_batches,emb_array,args.batch_size,image_paths)
                 sorted_clusters = cluster_facial_encodings(facial_encodings)
                 num_cluster = len(sorted_clusters)
-                #print('created %d cluster!',num_cluster)
-                #for idx,cluster in enumerate(sorted_clusters):
-                #    print('%d th cluster num :%d',idx,len(cluster))
+                
                 dest_dir = join(args.output, train_set[x].name)
                 # Copy image files to cluster folders
                 for idx, cluster in enumerate(sorted_clusters):
                     #这个是保存聚类后所有类别
-                    #cluster_dir = join(dest_dir, str(idx))
-                    #只保存聚类后个数最多的
-                    cluster_dir = dest_dir
-                    if len(cluster)<5:
-                    	break
+                    cluster_dir = join(dest_dir, str(idx))
                     if not exists(cluster_dir):
                         makedirs(cluster_dir)
                     for path in cluster:
                         shutil.copy(path, join(cluster_dir, basename(path)))
-                    break
+
 
     
 def parse_args():
