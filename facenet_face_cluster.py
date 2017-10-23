@@ -18,7 +18,8 @@ def face_distance(face_encodings, face_to_compare):
     if len(face_encodings) == 0:
         return np.empty((0))
 
-    return np.linalg.norm(face_encodings - face_to_compare, axis=1)
+    #return 1/np.linalg.norm(face_encodings - face_to_compare, axis=1)
+    return np.sum(face_encodings*face_to_compare,axis=1)
 
 def load_model(model_dir, meta_file, ckpt_file):
     model_dir_exp = os.path.expanduser(model_dir)
@@ -71,7 +72,7 @@ def _chinese_whispers(encoding_list, threshold=0.75, iterations=20):
         distances = face_distance(compare_encodings, face_encoding_to_check)
         encoding_edges = []
         for i, distance in enumerate(distances):
-            if distance < threshold:
+            if distance > threshold:
                 # Add edge if facial match
                 edge_id = idx+i+2
                 encoding_edges.append((node_id, edge_id, {'weight': distance}))
